@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :profiles
+  devise_for :users
   namespace :api, format: 'json' do
     namespace :v1 do
       resources :pins, only: [:index, :show]

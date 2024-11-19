@@ -9,4 +9,6 @@
   <%= button_to "Destroy this pin", @pin, method: :delete %>
 </div>
 
-<%= render @pin.comments %>
+<%= render "comments/form" %>
+
+<%= render @pin.comments.not_replies %>

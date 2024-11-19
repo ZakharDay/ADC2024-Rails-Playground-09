@@ -1,13 +1,18 @@
-<p>
-  <b>Commenter:</b>
-  <%= comment.author %>
-</p>
+<%
+  comment_level = nested_level(comment)
+%>
 
-<p>
-  <b>Comment:</b>
-  <%= comment.content %>
-</p>
+<div class="comment <%= 'reply' if comment.comment_id != nil && comment_level < 4 %>">
+  <%#= comment.author %>
+  <p><%= comment.content %></p>
 
-<p>
-  <%= link_to 'Destroy Comment', [comment.pin, comment], data: { turbo_stream: false, turbo_method: :delete, turbo_confirm: "Are you sure?" } %>
-</p>
+  <p>
+    Id: <%= comment.id %>, Nested level: <%= nested_level(comment) %>
+  </p>
+
+  <%#= link_to 'Destroy Comment', [comment.pin, comment], data: { turbo_stream: false, turbo_method: :delete, turbo_confirm: "Are you sure?" } %>
+
+  <%= render "comments/form", parent_comment_id: comment.id %>
+
+  <%= render comment.replies %>
+</div>
