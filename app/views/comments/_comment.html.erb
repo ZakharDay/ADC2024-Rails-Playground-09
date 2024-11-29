@@ -1,10 +1,19 @@
 <%
   comment_level = nested_level(comment)
+
+  likes_count = comment.likes.count
+  like_text = "Like (#{likes_count})"
+
+  if current_user && comment.likes.where(user_id: current_user.id).count > 0
+    like_text = "Unlike (#{likes_count})"
+  end
 %>
 
 <div class="comment <%= 'reply' if comment.comment_id != nil && comment_level < 4 %>">
   <%#= comment.author %>
   <p><%= comment.content %></p>
+
+  <%= render partial: "like/button", locals: { likeable: comment } %>
 
   <p>
     Id: <%= comment.id %>, Nested level: <%= nested_level(comment) %>

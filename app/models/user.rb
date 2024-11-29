@@ -6,4 +6,6 @@ class User < ApplicationRecord
 
   has_one :profile
   after_create :create_profile
+
+  has_many :likes
 end

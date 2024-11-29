@@ -1,6 +1,10 @@
 Rails.application.routes.draw do
+  get "like/toggle"
+  
   resources :profiles
+
   devise_for :users
+
   namespace :api, format: 'json' do
     namespace :v1 do
       resources :pins, only: [:index, :show]
@@ -9,6 +13,10 @@ Rails.application.routes.draw do
 
   resources :pins do
     resources :comments
+
+    collection do
+      get "by_tag/:tag", to: "pins#by_tag", as: "tagged"
+    end
   end
 
   get "welcome/index"
