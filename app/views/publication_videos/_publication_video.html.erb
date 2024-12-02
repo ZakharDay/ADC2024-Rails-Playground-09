@@ -1,0 +1,19 @@
+<div id="<%= dom_id publication_video %>">
+  <p>
+    <strong>Type:</strong>
+    <%= publication_video.type %>
+  </p>
+
+  <p>
+    <strong>Title:</strong>
+    <%= publication_video.title %>
+  </p>
+
+  <p>
+    <strong>Body:</strong>
+    <%= publication_video.body %>
+  </p>
+
+  <%= publication_video.embed.html_safe %>
+
+</div>

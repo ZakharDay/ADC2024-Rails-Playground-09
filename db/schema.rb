@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_11_29_173534) do
+ActiveRecord::Schema[7.2].define(version: 2024_11_29_181449) do
   create_table "comments", force: :cascade do |t|
     t.string "author"
     t.text "content"
@@ -43,6 +43,15 @@ ActiveRecord::Schema[7.2].define(version: 2024_11_29_173534) do
     t.string "name"
     t.text "bio"
     t.string "avatar"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "publications", force: :cascade do |t|
+    t.string "type"
+    t.string "title"
+    t.text "body"
+    t.text "embed"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

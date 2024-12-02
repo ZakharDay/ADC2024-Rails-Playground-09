@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :publications
   get "like/toggle"
   
   resources :profiles

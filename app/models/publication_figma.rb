@@ -1,0 +1,2 @@
+class PublicationFigma < Publication
+end
