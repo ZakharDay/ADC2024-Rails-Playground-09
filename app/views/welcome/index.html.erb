@@ -1,3 +1,7 @@
+<% content_for :footer do %>
+<div>Это контент для футера</div>
+<% end %>
+
 <% counter = 1 %>
 
 <% 3.times do %>
@@ -8,3 +12,31 @@
 <h1>Ваше программирование!</h1>
 
 <%= api_v1_pins_url %>
+
+<div>
+  <%= t :hello %>
+</div>
+
+<div class="images">
+  <div class="image" id="bgPNG"></div>
+  <div class="image" id="bgJPG"></div>
+  <div class="image" id="bgSVG"></div>
+
+  <%= image_tag "image.png" %>
+  <%= image_tag "image.jpg" %>
+  <%= image_tag "image.svg" %>
+</div>
+
+<div class="container">
+  <div class="item"></div>
+  <div class="item wide"></div>
+</div>
+
+<div class="containerSCSS">
+  <div class="itemSCSS"></div>
+  <div class="itemSCSS wideSCSS"></div>
+</div>
+
+<% content_for :breadcrumbs do %>
+<div>Это хлебные крошки</div>
+<% end %>

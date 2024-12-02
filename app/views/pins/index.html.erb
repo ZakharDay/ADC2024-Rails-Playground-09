@@ -1,15 +1,21 @@
-<p style="color: green"><%= notice %></p>
+<%
+  set_meta_tags(
+    title: "Пины",
+    description: "Самые класные пины",
+    keywords: "пины, картинки, дизайн"
+  )
+%>
 
-<% content_for :title, "Pins" %>
+<p style="color: green"><%= notice %></p>
 
 <h1>Pins</h1>
 
 <div id="pins">
   <% @pins.each do |pin| %>
-    <%= render pin %>
-    <p>
-      <%= link_to "Show this pin", pin %>
-    </p>
+  <%= render pin %>
+  <p>
+    <%= link_to "Show this pin", pin %>
+  </p>
   <% end %>
 </div>
 

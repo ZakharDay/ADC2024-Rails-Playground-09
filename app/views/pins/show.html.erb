@@ -1,3 +1,11 @@
+<%
+  set_meta_tags(
+    title: @pin.title,
+    description: "Самые класные пины",
+    keywords: "пины, картинки, дизайн"
+  )
+%>
+
 <%= @pin.likes.count %>
 
 <%
@@ -28,4 +36,6 @@
 
 <%= render "comments/form" %>
 
-<%= render @pin.comments.not_replies %>
+<% comments = @pin.comments.not_replies %>
+<h3><%= comments.count %> <%= Russian.p(comments.count, "комментарий", "комментария", "комментариев") %></h3>
+<%= render comments %>

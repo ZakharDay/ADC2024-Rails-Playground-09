@@ -84,7 +84,7 @@ class PinsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def pin_params
-      params.require(:pin).permit(:title, :description, :pin_image, :tag_list)
+      params.require(:pin).permit(:title, :description, :pin_image, :pin_teaser_image, :tag_list)
     end
     
 end

@@ -1,5 +1,16 @@
 <div id="<%= dom_id pin %>">
-  <%= image_tag pin.pin_image.url, width: 600 %>
+  <%= image_tag pin.pin_image.url, width: 600 if pin.pin_image.present? %>
+  <div><%= bytes_to_megabytes(pin.pin_image.file.size) %> Mb</div>
+
+  <br><br>
+
+  <%= image_tag pin.pin_image.q70.url, width: 600 if pin.pin_image.present? %>
+  <div><%= bytes_to_megabytes(pin.pin_image.q70.file.size) %> Mb</div>
+
+  <br><br>
+
+  <%= image_tag pin.pin_image.thumb.url if pin.pin_image.present? %>
+  <div><%= bytes_to_kilobytes(pin.pin_image.thumb.file.size) %> Kb</div>
 
   <p>
     <strong>Title:</strong>

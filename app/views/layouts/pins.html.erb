@@ -2,7 +2,8 @@
 <html>
 
 <head>
-  <title><%= content_for(:title) || "Adc2024 Rails Playground 09" %></title>
+  <%= display_meta_tags site: "Adc2024 Rails Playground 09", separator: "—", reverse: true %>
+
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <%= csrf_meta_tags %>
@@ -23,7 +24,7 @@
     <%= link_to "Pins", pins_path %>
 
     <% Pin.tag_counts_on(:tags).each do |tag| %>
-      <%= link_to tag.name, tagged_pins_path(tag.name) %>
+    <%= link_to tag.name, tagged_pins_path(tag.name) %>
     <% end %>
   </div>
 

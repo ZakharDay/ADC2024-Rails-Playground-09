@@ -1,39 +1,45 @@
 <%= form_with(model: pin) do |form| %>
-  <% if pin.errors.any? %>
-    <div style="color: red">
-      <h2><%= pluralize(pin.errors.count, "error") %> prohibited this pin from being saved:</h2>
+<% if pin.errors.any? %>
+<div style="color: red">
+  <h2>Не удаётся сохранить из-за <%= pin.errors.count %> <%= Russian.p(pin.errors.count, "ошибки", "ошибок", "ошибок") %>:</h2>
 
-      <ul>
-        <% pin.errors.each do |error| %>
-          <li><%= error.full_message %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
+  <ul>
+    <% pin.errors.each do |error| %>
+    <li><%= error.full_message %></li>
+    <% end %>
+  </ul>
+</div>
+<% end %>
 
-  <div>
-    <%= form.label :title, style: "display: block" %>
-    <%= form.text_field :title %>
-  </div>
+<div>
+  <%= form.label :title, style: "display: block" %>
+  <%= form.text_field :title %>
+</div>
 
-  <div>
-    <%= form.label :description, style: "display: block" %>
-    <%= form.text_area :description %>
-  </div>
+<div>
+  <%= form.label :description, style: "display: block" %>
+  <%= form.text_area :description %>
+</div>
 
-  <div>
-    <%= form.label :pin_image, style: "display: block" %>
-    <%= form.file_field :pin_image %>
-  </div>
+<div>
+  <%= form.label :pin_image, style: "display: block" %>
+  <%= form.file_field :pin_image %>
+</div>
 
-  <div>
-    <%= form.label :tag_list, style: "display: block" %>
-    <%= form.text_field :tag_list, value: pin.tag_list.join(", ") %>
-  </div>
 
-  <br>
+<div>
+  <%= form.label :pin_teaser_image, style: "display: block" %>
+  <%= form.file_field :pin_teaser_image %>
+</div>
 
-  <div>
-    <%= form.submit %>
-  </div>
+<div>
+  <%= form.label :tag_list, style: "display: block" %>
+  <%= form.text_field :tag_list, value: pin.tag_list.join(", ") %>
+</div>
+
+<br>
+
+<div>
+  <%= form.submit %>
+</div>
 <% end %>

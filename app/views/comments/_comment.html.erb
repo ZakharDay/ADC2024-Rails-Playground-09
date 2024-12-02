@@ -23,5 +23,7 @@
 
   <%= render "comments/form", parent_comment_id: comment.id %>
 
-  <%= render comment.replies %>
+  <% replies = comment.replies %>
+  <h4><%= replies.count %> <%= Russian.p(replies.count, "ответ", "ответа", "ответов") %></h4>
+  <%= render replies %>
 </div>

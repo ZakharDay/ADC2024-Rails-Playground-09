@@ -22,3 +22,44 @@
 .reply {
   margin-left: 100px;
 }
+
+.container {
+  width: 600px;
+  height: 100px;
+  padding: 100px;
+  background-color: lightblue;
+
+  .item {
+    width: 100px;
+    height: 100px;
+    background-color: green;
+
+    &.wide {
+      width: 200px;
+    }
+  }
+}
+
+.images {
+  display: flex;
+
+  * {
+    width: 24px;
+    height: 24px;
+    margin: 0 10px;
+  }
+
+  .image {
+    &#bgPNG {
+      background-image: url('image.png');
+    }
+
+    &#bgJPG {
+      background-image: url('image.jpg');
+    }
+
+    &#bgSVG {
+      background-image: url('image.svg');
+    }
+  }
+}

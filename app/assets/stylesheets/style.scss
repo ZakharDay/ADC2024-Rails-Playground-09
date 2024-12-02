@@ -1,0 +1,16 @@
+.containerSCSS {
+  width: 600px;
+  height: 100px;
+  padding: 100px;
+  background-color: lightblue;
+
+  .itemSCSS {
+    width: 100px;
+    height: 100px;
+    background-color: green;
+
+    &.wideSCSS {
+      width: 200px;
+    }
+  }
+}
