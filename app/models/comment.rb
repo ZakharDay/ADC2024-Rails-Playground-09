@@ -7,4 +7,6 @@ class Comment < ApplicationRecord
 
   default_scope { order(created_at: "DESC") }
   scope :not_replies, -> { where(comment_id: nil) }
+
+  after_create_commit { broadcast_prepend_to("comments") }
 end

@@ -11,19 +11,27 @@
 
 <div class="comment <%= 'reply' if comment.comment_id != nil && comment_level < 4 %>">
   <%#= comment.author %>
-  <p><%= comment.content %></p>
+  <%= turbo_frame_tag dom_id(comment) do %>
+    <p><%= comment.content %></p>
 
-  <%= render partial: "like/button", locals: { likeable: comment } %>
+    <%#= render partial: "like/button", locals: { likeable: comment } %>
+    
+    <%= link_to "Edit", edit_pin_comment_path(comment.pin, comment) %>
 
-  <p>
-    Id: <%= comment.id %>, Nested level: <%= nested_level(comment) %>
-  </p>
+    <p>
+      Id: <%= comment.id %>, Nested level: <%= nested_level(comment) %>
+    </p>
+  <% end %>
 
   <%#= link_to 'Destroy Comment', [comment.pin, comment], data: { turbo_stream: false, turbo_method: :delete, turbo_confirm: "Are you sure?" } %>
 
-  <%= render "comments/form", parent_comment_id: comment.id %>
+  <%= render partial: "comments/new_form", locals: { comment: Comment.new, url: pin_comments_path(comment.pin), parent_comment_id: comment.id, dom_id: "new_pin_comment_reply_form_" + comment.id.to_s } %>
 
   <% replies = comment.replies %>
-  <h4><%= replies.count %> <%= Russian.p(replies.count, "ответ", "ответа", "ответов") %></h4>
-  <%= render replies %>
+
+  <%= render partial: "comments/replies_counter", locals: { replies: replies, id: "pin_replies_heading_" + comment.id.to_s } %>
+
+  <div id="comment_replies_<%= comment.id %>">
+    <%= render replies %>
+  </div>
 </div>

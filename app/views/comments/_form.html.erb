@@ -1,17 +1,19 @@
-<%= form_with model: Comment.new, url: pin_comments_path(@pin) do |form| %>
-  <%#= form.label :author, style: "display: block" %>
-  <%#= form.text_field :author %>
+<%= turbo_frame_tag dom_id(comment) do %>
+  <%= form_with model: comment, url: url do |form| %>
+    <%#= form.label :author, style: "display: block" %>
+    <%#= form.text_field :author %>
 
-  <div>
-    <%= form.label :content, style: "display: block" %>
-    <%= form.text_area :content %>
-  </div>
+    <div>
+      <%= form.label :content, style: "display: block" %>
+      <%= form.text_area :content %>
+    </div>
 
-  <% if defined? parent_comment_id %>
-    <%= form.hidden_field :comment_id, value: parent_comment_id %>
+    <% if defined? parent_comment_id %>
+      <%= form.hidden_field :comment_id, value: parent_comment_id %>
+    <% end %>
+
+    <div>
+      <%= form.submit %>
+    </div>
   <% end %>
-
-  <div>
-    <%= form.submit %>
-  </div>
 <% end %>

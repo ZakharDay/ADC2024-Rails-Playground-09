@@ -1,0 +1,17 @@
+<%= form_with model: comment, url: url, data: { turbo_stream: true }, id: dom_id do |form| %>
+  <%#= form.label :author, style: "display: block" %>
+  <%#= form.text_field :author %>
+
+  <div>
+    <%= form.label :content, style: "display: block" %>
+    <%= form.text_area :content %>
+  </div>
+
+  <% if defined? parent_comment_id %>
+    <%= form.hidden_field :comment_id, value: parent_comment_id %>
+  <% end %>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>

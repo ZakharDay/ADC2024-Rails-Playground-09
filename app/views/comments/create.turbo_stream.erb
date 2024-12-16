@@ -1,0 +1,13 @@
+<% if @comment.comment_id == nil %>
+  <%= turbo_stream.prepend "comments", partial: "comments/comment", locals: { comment: @comment } %>
+  <%= turbo_stream.replace "new_pin_comment_form", partial: "comments/new_form", locals: { comment: Comment.new, url: pin_comments_path(@comment.pin), dom_id: "new_pin_comment_form" } %>
+  <%= turbo_stream.replace "pin_comments_heading", partial: "comments/counter", locals: { comments: @comment.pin.comments.not_replies } %>
+<% else %>
+  <% element_id = "comment_replies_" + @comment.comment_id.to_s %>
+  <% form_id = "new_pin_comment_reply_form_" + @comment.comment_id.to_s %>
+  <% couter_id = "pin_replies_heading_" + @comment.comment_id.to_s %>
+
+  <%= turbo_stream.prepend element_id, partial: "comments/comment", locals: { comment: @comment } %>
+  <%= turbo_stream.replace form_id, partial: "comments/new_form", locals: { comment: Comment.new, url: pin_comments_path(@comment.pin), parent_comment_id: @comment.comment_id, dom_id: "new_pin_comment_reply_form_" + @comment.comment_id.to_s  } %>
+  <%= turbo_stream.replace couter_id, partial: "comments/replies_counter", locals: { replies: @comment.comment.replies, id: couter_id } %>
+<% end %>
