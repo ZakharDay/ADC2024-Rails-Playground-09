@@ -1,6 +1,7 @@
 class Pin < ApplicationRecord
   has_many :comments
   has_many :likes, as: :likeable
+  belongs_to :user
 
   mount_uploader :pin_image, PinImageUploader
   mount_uploader :pin_teaser_image, PinTeaserImageUploader

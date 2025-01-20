@@ -8,4 +8,5 @@ class User < ApplicationRecord
   after_create :create_profile
 
   has_many :likes
+  has_many :pins
 end

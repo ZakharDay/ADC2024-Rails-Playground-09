@@ -60,7 +60,8 @@ def create_pins(quantity)
     pin = Pin.create(
       title: create_sentence,
       description: create_sentence,
-      pin_image: upload_random_image
+      pin_image: upload_random_image,
+      user_id: User.all.sample.id
     )
 
     puts "Pin with id #{pin.id} just created"

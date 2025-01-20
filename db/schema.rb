@@ -34,6 +34,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_12_02_142157) do
     t.string "title"
     t.text "description"
     t.string "pin_image"
+    t.integer "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "pin_teaser_image"

@@ -4,6 +4,7 @@ class CreatePins < ActiveRecord::Migration[7.2]
       t.string :title
       t.text :description
       t.string :pin_image
+      t.integer :user_id
 
       t.timestamps
     end
