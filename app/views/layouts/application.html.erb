@@ -20,6 +20,16 @@
 </head>
 
 <body>
+  <%= session.to_json %>
+  <br><br>
+  <%= cookies.to_json %>
+  <br><br>
+  <% if current_user %>
+    <%= current_user.jti %>
+  <% end %>
+
+  <%= render "cartbar" %>
+
   <%= yield :breadcrumbs %>
 
   <%= yield %>

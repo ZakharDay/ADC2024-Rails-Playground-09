@@ -1,10 +1,19 @@
 Rails.application.routes.draw do
+  get "cart/add/:id", to: "carts#add", as: "cart_add"
+  get "cart/destroy", to: "carts#destroy", as: "cart_destroy"
+
+  resources :products
   resources :publications
   get "like/toggle"
   
   resources :profiles
 
-  devise_for :users
+  devise_for :users#, skip: [:sessions]
+  # as :user do
+  #   get 'signin', to: 'devise/sessions#new', as: :new_user_session
+  #   post 'signin', to: 'devise/sessions#create', as: :user_session
+  #   delete 'signout', to: 'devise/sessions#destroy', as: :destroy_user_session
+  # end
 
   namespace :api, format: 'json' do
     namespace :v1 do
@@ -32,5 +41,5 @@ Rails.application.routes.draw do
   get "manifest" => "rails/pwa#manifest", as: :pwa_manifest
 
   # Defines the root path route ("/")
-  root "pins#index"
+  root "products#index"
 end

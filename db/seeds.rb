@@ -4,6 +4,7 @@
 def seed
   reset_db
   create_users(10)
+  create_products(100)
   create_pins(100)
   create_comments(2..8)
 
@@ -32,7 +33,7 @@ def create_users(quantity)
     # end
 
     user = User.create!(user_data)
-    puts "User created with id #{user.id}"
+    puts "User created with id #{user.id} with jti #{user.jti }"
 
     i += 1
   end
@@ -83,6 +84,18 @@ def create_comment_replies
       comment_reply = comment.replies.create!(pin_id: comment.pin_id, content: create_sentence)
       puts "Comment reply with id #{comment_reply.id} for pin with id #{comment_reply.pin.id} just created"
     end
+  end
+end
+
+def create_products(quantity)
+  quantity.times do
+    product = Product.create(
+      name: create_sentence,
+      description: create_sentence,
+      price: rand(100..1000)
+    )
+
+    puts "Product with id #{product.id} just created"
   end
 end
 
