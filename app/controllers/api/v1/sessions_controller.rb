@@ -19,23 +19,18 @@ class Api::V1::SessionsController < Devise::SessionsController
     end
   end
 
-  def destroy
-    puts 'PARAMS'
-    puts params
-    
-    @user = User.find_by_jti(params[:jti])
+  def destroy    
+    @user = User.find_by_jti(params[:user][:jti])
 
     if @user && @user.update_column(:jti, SecureRandom.uuid)
       render json: {
         messages: "Signed Out Successfully",
-        is_success: true,
-        data: {}
+        is_success: true
       }, status: :ok
     else
       render json: {
         messages: "Sign Out Failed - Unauthorized",
-        is_success: false,
-        data: {}
+        is_success: false
       }, status: :unauthorized
     end
   end
@@ -48,14 +43,11 @@ class Api::V1::SessionsController < Devise::SessionsController
 
     def load_user
       @user = User.find_for_database_authentication(email: sign_in_params[:email])
-      puts 'USER'
-      puts @user.to_json
 
       unless @user
         render json: {
           messages: "Sign In Failed - Unauthorized",
-          is_success: false,
-          data: {}
+          is_success: false
         }, status: :unauthorized
       end
     end

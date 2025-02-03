@@ -6,6 +6,9 @@ class ApplicationController < ActionController::Base
 
   def authenticate_guest
     if current_user
+      puts 'CURRENT USER'
+      puts current_user.to_json
+
       if cookies[:guest_token]
         @guest = Guest.find_by_jti(cookies[:guest_token])
         @cart = @guest.carts.first
@@ -27,7 +30,7 @@ class ApplicationController < ActionController::Base
         if current_user.carts.any?
           @cart = current_user.carts.first
         else
-          @cart.create!(cartable_type: 'User', cartable_id: current_user.id)
+          @cart = Cart.create!(cartable_type: 'User', cartable_id: current_user.id)
         end
       end
     else

@@ -17,7 +17,7 @@ Rails.application.routes.draw do
 
   namespace :api, format: 'json' do
     namespace :v1 do
-      resources :pins, only: [:index, :show]
+      resources :pins, only: [:index, :show, :create]
 
       devise_scope :user do
         post "sign_up", to: "registrations#create"
