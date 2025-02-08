@@ -8,19 +8,18 @@ class Api::V1::SessionsController < Devise::SessionsController
       render json: {
         messages: "Signed In Successfully",
         is_success: true,
-        jti: @user.jti
+        jwt: encrypt_payload
       }, status: :ok
     else
       render json: {
         messages: "Sign In Failed - Unauthorized",
-        is_success: false,
-        data: {}
+        is_success: false
       }, status: :unauthorized
     end
   end
 
-  def destroy    
-    @user = User.find_by_jti(params[:user][:jti])
+  def destroy
+    @user = User.find_by_jti(decrypt_payload[0]['jti'])
 
     if @user && @user.update_column(:jti, SecureRandom.uuid)
       render json: {
@@ -50,6 +49,16 @@ class Api::V1::SessionsController < Devise::SessionsController
           is_success: false
         }, status: :unauthorized
       end
+    end
+
+    def encrypt_payload
+      payload = @user.as_json(only: [:email, :jti])
+      token = JWT.encode(payload, Rails.application.credentials.devise_jwt_secret_key!, 'HS256')
+    end
+
+    def decrypt_payload
+      jwt = request.headers["Authorization"]
+      token = JWT.decode(jwt, Rails.application.credentials.devise_jwt_secret_key!, true, { algorithm: 'HS256' })
     end
 
 end

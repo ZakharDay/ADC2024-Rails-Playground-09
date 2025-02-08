@@ -10,9 +10,7 @@ class Api::V1::PinsController < ApplicationController
   end
 
   def create
-    jti = request.headers["Authorization"]
-
-    user = User.find_by_jti(jti)
+    user = User.find_by_jti(decrypt_payload[0]['jti'])
     pin = user.pins.new(pin_params)
 
     if pin.save
@@ -26,6 +24,11 @@ class Api::V1::PinsController < ApplicationController
 
     def pin_params
       params.require(:pin).permit(:title, :description, :pin_image)
+    end
+
+    def decrypt_payload
+      jwt = request.headers["Authorization"]
+      token = JWT.decode(jwt, Rails.application.credentials.devise_jwt_secret_key!, true, { algorithm: 'HS256' })
     end
 
 end
