@@ -11,5 +11,7 @@ class Pin < ApplicationRecord
   validates :title, presence: true
   validates :description, presence: true
 
+  has_rich_text :description
+
   default_scope { order(created_at: "DESC") }
 end
