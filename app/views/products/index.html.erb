@@ -7,10 +7,6 @@
 <div id="products">
   <% @products.each do |product| %>
     <%= render product %>
-    <p>
-      <%= link_to "Show this product", product %>
-      <%= link_to "Add to cart", cart_add_path(product), data: { turbo_stream: true } %>
-    </p>
   <% end %>
 </div>
 

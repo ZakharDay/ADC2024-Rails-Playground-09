@@ -9,7 +9,5 @@
 %>
 
 <div id="cartbar">
-  Корзина: товаров <%= items %>, на сумму <%= total %> ₽
-  <%= link_to "Очистить корзину", cart_destroy_path, data: { turbo_stream: true } %>
-  <%= link_to "Выйти", destroy_user_session_path, data: { turbo_method: :delete } if current_user %>
+  Корзина: товаров <span class="counter"><%= items %></span>, на сумму <%= total %> ₽
 </div>

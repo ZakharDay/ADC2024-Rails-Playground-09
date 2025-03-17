@@ -11,9 +11,15 @@ class CartsController < ApplicationController
 
     @cart.products << @product
 
-    respond_to do |format|
-      format.turbo_stream
-    end
+    # respond_to do |format|
+    #   # format.turbo_stream
+    #   format.json 
+    # end
+
+    render json: {
+      messages: "Added to cart",
+      is_success: true
+    }, status: :ok
   end
 
   def destroy

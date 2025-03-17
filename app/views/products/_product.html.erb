@@ -1,17 +1,11 @@
-<div id="<%= dom_id product %>">
+<div class="product" data-controller="product" data-product-url-value="<%= cart_add_url(product) %>">
+  <h2><%= link_to product.name, product %></h2>
+  <p><%= product.description %></p>
+  
   <p>
-    <strong>Name:</strong>
-    <%= product.name %>
-  </p>
+    <%= content_tag :span, product.price %>
+    <%#= link_to "Add to cart", cart_add_path(product), data: { turbo_stream: true } %>
 
-  <p>
-    <strong>Description:</strong>
-    <%= product.description %>
+    <div class="addToCartButton" data-action="click->product#addToCart">Добавить в корзину</div>
   </p>
-
-  <p>
-    <strong>Price:</strong>
-    <%= product.price %>
-  </p>
-
 </div>
