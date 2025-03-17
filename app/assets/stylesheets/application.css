@@ -63,3 +63,11 @@
     }
   }
 }
+
+.pin {
+  width: 600px;
+  padding: 40px;
+  margin: 20px;
+  border: 1px solid lightgrey;
+  border-radius: 10px;
+}

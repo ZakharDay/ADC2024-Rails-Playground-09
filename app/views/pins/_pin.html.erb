@@ -1,30 +1,11 @@
-<div id="<%= dom_id pin %>">
-  <%= image_tag pin.pin_image.url, width: 600 if pin.pin_image.present? %>
-  <div><%= bytes_to_megabytes(pin.pin_image.file.size) %> Mb</div>
+<div class="pin" id="<%= dom_id pin %>">
+  <% if pin.pin_image.try(:url) %>
+    <%= image_tag pin.pin_image.url, width: 600 if pin.pin_image.present? %>
+    <div><%= bytes_to_megabytes(pin.pin_image.file.size) %> Mb</div>
+  <% end %>
 
-  <br><br>
+  <h2><%= link_to pin.title, pin %></h2>
+  <p><%= pin.description %></p>
 
-  <%= image_tag pin.pin_image.q70.url, width: 600 if pin.pin_image.present? %>
-  <div><%= bytes_to_megabytes(pin.pin_image.q70.file.size) %> Mb</div>
-
-  <br><br>
-
-  <%= image_tag pin.pin_image.thumb.url if pin.pin_image.present? %>
-  <div><%= bytes_to_kilobytes(pin.pin_image.thumb.file.size) %> Kb</div>
-
-  <p>
-    <strong>Title:</strong>
-    <%= pin.title %>
-  </p>
-
-  <p>
-    <strong>Description:</strong>
-    <%= pin.description %>
-  </p>
-
-  <p>
-    <strong>Pin image:</strong>
-    <%= pin.pin_image %>
-  </p>
-
+  <%= render partial: "likes/like_control", locals: { likeable: pin } %>
 </div>

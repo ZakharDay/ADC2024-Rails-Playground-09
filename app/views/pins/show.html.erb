@@ -6,16 +6,8 @@
   )
 %>
 
-<%= @pin.likes.count %>
-
-<%
-  likes_count = @pin.likes.count
-  like_text = "Like (#{likes_count})"
-
-  if current_user && @pin.likes.where(user_id: current_user.id).count > 0
-    like_text = "Unlike (#{likes_count})"
-  end
-%>
+<%= turbo_stream_from "pins_likes" %>
+<%= turbo_stream_from "comments" %>
 
 <p style="color: green"><%= notice %></p>
 
@@ -26,8 +18,6 @@
 </div>
 
 <div>
-  <%= render partial: "like/button", locals: { likeable: @pin } %>
-
   <%= link_to "Edit this pin", edit_pin_path(@pin) %> |
   <%= link_to "Back to pins", pins_path %>
 
@@ -39,8 +29,6 @@
 <% comments = @pin.comments.not_replies %>
 
 <%= render partial: "comments/counter", locals: { comments: comments } %>
-
-<%= turbo_stream_from "comments" %>
 
 <div id="comments">
   <%= render comments %>

@@ -4,7 +4,7 @@ Rails.application.routes.draw do
 
   resources :products
   resources :publications
-  get "like/toggle"
+  get "likes/toggle"
   
   resources :profiles
 

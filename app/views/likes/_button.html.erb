@@ -1,0 +1,12 @@
+<% if current_user %>
+  <%
+    like = likeable.likes.where(user_id: current_user.id)
+    button_text = like && like.count > 0 ? "Не нравится" : "Нравится"
+  %>
+
+  <%= turbo_frame_tag "like_#{dom_id(likeable)}_button" do %>
+    <%= link_to button_text, likes_toggle_path(type: likeable.class, id: likeable.id), data: { turbo_stream: true } %>
+  <% end %>
+<% else %>
+  <%= link_to "Нравится", likes_toggle_path(type: likeable.class, id: likeable.id) %>
+<% end %>

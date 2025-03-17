@@ -14,7 +14,7 @@
   <%= turbo_frame_tag dom_id(comment) do %>
     <p><%= comment.content %></p>
 
-    <%#= render partial: "like/button", locals: { likeable: comment } %>
+    <%= render partial: "likes/like_control", locals: { likeable: comment } %>
     
     <%= link_to "Edit", edit_pin_comment_path(comment.pin, comment) %>
 

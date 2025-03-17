@@ -1,8 +1,9 @@
-class LikeController < ApplicationController
+class LikesController < ApplicationController
+  before_action :authenticate_user!
 
   def toggle
-    likeable = Object.const_get(params[:type]).find(params[:id])
-    likes = likeable.likes.where(user_id: current_user.id)
+    @likeable = Object.const_get(params[:type]).find(params[:id])
+    likes = @likeable.likes.where(user_id: current_user.id)
 
     if likes && likes.count > 0
       likes.each do |like|
