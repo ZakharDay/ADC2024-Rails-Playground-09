@@ -1,17 +1,6 @@
 <% content_for :footer do %>
-<div>Это контент для футера</div>
+  <div>Это контент для футера</div>
 <% end %>
-
-<% counter = 1 %>
-
-<% 3.times do %>
-<%= render 'counter', counter: counter %>
-<% counter += 1 %>
-<% end %>
-
-<h1>Ваше программирование!</h1>
-
-<%= api_v1_pins_url %>
 
 <div>
   <%= t :hello %>
@@ -38,5 +27,20 @@
 </div>
 
 <% content_for :breadcrumbs do %>
-<div>Это хлебные крошки</div>
+  <div>Это хлебные крошки</div>
 <% end %>
+
+<div data-controller="hello">
+  <input data-hello-target="name" type="text">
+  <div data-action="click->hello#greet">Click</div>
+</div>
+
+<div data-controller="slideshow" data-slideshow-index-value="1">
+  <button data-action="slideshow#previous"> ← </button>
+  <button data-action="slideshow#next"> → </button>
+
+  <div data-slideshow-target="slide">🐵</div>
+  <div data-slideshow-target="slide">🙈</div>
+  <div data-slideshow-target="slide">🙉</div>
+  <div data-slideshow-target="slide">🙊</div>
+</div>
