@@ -125,6 +125,7 @@ body {
   background: black;
   color: white;
   cursor: pointer;
+  user-select: none;
 }
 
 #cartbar {

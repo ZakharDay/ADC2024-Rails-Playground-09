@@ -16,10 +16,15 @@ class CartsController < ApplicationController
     #   format.json 
     # end
 
-    render json: {
-      messages: "Added to cart",
-      is_success: true
-    }, status: :ok
+    items = 0
+    total = 0
+
+    @cart.products.each do |product|
+      items += 1
+      total += product.price
+    end
+
+    render json: { items: items, total: total }, status: :ok
   end
 
   def destroy

@@ -19,16 +19,23 @@ export default class extends Controller {
     fetch(this.urlValue + '.json').then((response) => {
       console.log(response);
 
-      this.animateCart();
+      response.json().then((data) => {
+        console.log(data);
+
+        this.animateCart(data);
+      });
     });
   }
 
-  animateCart() {
+  animateCart(data) {
+    const { items, total } = data;
+
     const productCard = this.element;
     const animationElement = this.element.cloneNode(true);
 
     const cartBar = document.getElementById('cartbar');
-    const cartCounter = cartBar.querySelector('.counter');
+    const cartItems = cartBar.querySelector('.items');
+    const cartTotal = cartBar.querySelector('.total');
 
     const animationDelta = {
       x:
@@ -56,6 +63,10 @@ export default class extends Controller {
       fill: 'forwards',
     };
 
+    animationElement.querySelectorAll('.product').forEach((card) => {
+      card.remove();
+    });
+
     animationElement.classList.add('addToCart');
     this.element.appendChild(animationElement);
 
@@ -70,53 +81,8 @@ export default class extends Controller {
         cartBar.classList.remove('addToCart');
       }, 400);
 
-      cartCounter.innerText = parseInt(cartCounter.innerText) + 1;
+      cartItems.innerText = items;
+      cartTotal.innerText = total;
     }, animationDiration);
-
-    //   const cartButton = document.querySelector('.A_CartButton');
-    //   const cartButtonCounter = cartButton.querySelector('.W_CartItemsCounter');
-    //   const bookContentContainer = document.querySelector('.S_BookContent');
-    //   const bookImagesElement = document.querySelector('.O_BookImages');
-    //   const animationElement = bookImagesElement.cloneNode(true);
-    //   animationElement.querySelector('.C_BookGalleryControls').remove();
-    //   animationElement.querySelector('.C_BookImagesMeatballs').remove();
-
-    //   animationElement.classList.add('addToCart');
-    //   bookContentContainer.appendChild(animationElement);
-
-    //   const buttonImagesDelta = {
-    //     x:
-    //       cartButton.getBoundingClientRect().left -
-    //       animationElement.getBoundingClientRect().left -
-    //       animationElement.getBoundingClientRect().width / 2 +
-    //       18,
-    //     y:
-    //       cartButton.getBoundingClientRect().top -
-    //       animationElement.getBoundingClientRect().top -
-    //       animationElement.getBoundingClientRect().height / 2 +
-    //       18,
-    //   };
-
-    //   const addToCartAnimation = [
-    //     {
-    //       transform: `translateX(${buttonImagesDelta.x}px) translateY(${buttonImagesDelta.y}px) scale(0.03)`,
-    //       opacity: 0,
-    //     },
-    //   ];
-
-    //   const addToCartTiming = {
-    //     duration: 1000,
-    //     iterations: 1,
-    //     fill: 'forwards',
-    //   };
-
-    //   animationElement.animate(addToCartAnimation, addToCartTiming);
-
-    //   setTimeout(() => {
-    //     animationElement.remove();
-    //     cartButton.classList.add('addToCart');
-    //     cartButton.classList.remove('empty');
-    //     cartButtonCounter.innerText = parseInt(cartButtonCounter.innerText) + 1;
-    //   }, 1000);
   }
 }
