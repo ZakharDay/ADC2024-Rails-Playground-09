@@ -1,0 +1,7 @@
+<div class="galleryMeatballs" id="galleryMeatballs" data-gallery-target="galleryMeatballs">
+  <% if gallery.gallery_images.any? %>
+    <% gallery.gallery_images.each do |gallery_image| %>
+      <div class="galleryMeatball" data-action="click->gallery#moveToSlide" data-gallery-position-param="<%= gallery_image.position %>" data-gallery-target="galleryMeatball"></div>
+    <% end %>
+  <% end %>
+</div>

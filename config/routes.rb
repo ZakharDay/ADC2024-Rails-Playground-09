@@ -1,4 +1,15 @@
 Rails.application.routes.draw do
+  resources :galleries do
+    resources :gallery_images, only: :create
+  end
+
+  resources :gallery_images, only: :destroy do
+    member do
+      get :lower
+      get :higher
+    end
+  end
+  
   get "cart/add/:id", to: "carts#add", as: "cart_add"
   get "cart/destroy", to: "carts#destroy", as: "cart_destroy"
 

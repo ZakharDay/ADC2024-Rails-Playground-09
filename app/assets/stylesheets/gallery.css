@@ -1,0 +1,120 @@
+.galleryImages {
+  position: relative;
+  width: 600px;
+  height: 400px;
+  margin: 0 auto;
+  background-color: aqua;
+  overflow: hidden;
+
+  .galleryImagesRail {
+    position: absolute;
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: stretch;
+    background-color: beige;
+    width: 100%;
+    height: 100%;
+    transition: all 0.3s ease-in-out;
+
+    .galleryImage {
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 600px;
+      min-width: 600px;
+
+      img {
+        object-fit: contain;
+      }
+
+      &.portrait,
+      &.square {
+        img {
+          width: auto;
+          height: 100%;
+        }
+      }
+
+      &.landscape {
+        img {
+          width: 100%;
+          height: auto;
+        }
+      }
+
+      .buttonSet {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        display: flex;
+        gap: 10px;
+
+        .button {
+          display: block;
+          padding: 0 20px;
+          height: 40px;
+          line-height: 40px;
+          background-color: black;
+          color: white;
+          text-align: center;
+          text-decoration: none;
+          user-select: none;
+          opacity: 0;
+          cursor: default;
+          opacity: 0.4;
+
+          &:hover {
+            opacity: 0.8;
+          }
+        }
+      }
+    }
+  }
+}
+
+.galleryNavigation {
+  display: flex;
+  width: 600px;
+  margin: 0 auto;
+  /* padding-bottom: 30px; */
+  justify-content: space-between;
+
+  .button {
+    display: block;
+    padding: 0 20px;
+    height: 40px;
+    line-height: 40px;
+    background-color: black;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    user-select: none;
+    opacity: 0;
+    cursor: default;
+
+    &.visible {
+      opacity: 1;
+      cursor: pointer;
+    }
+  }
+}
+
+.galleryMeatballs {
+  display: flex;
+  justify-content: center;
+  padding: 20px 0;
+
+  .galleryMeatball {
+    width: 12px;
+    height: 12px;
+    margin: 0 8px;
+    border-radius: 6px;
+    background-color: black;
+    opacity: 0.3;
+
+    &.active {
+      opacity: 1;
+    }
+  }
+}

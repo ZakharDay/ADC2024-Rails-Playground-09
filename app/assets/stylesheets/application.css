@@ -81,6 +81,14 @@ body {
   border-radius: 10px;
 }
 
+.galleryTeaser {
+  width: 600px;
+  padding: 40px;
+  margin: 20px;
+  border: 1px solid lightgrey;
+  border-radius: 10px;
+}
+
 .product {
   position: relative;
   width: 600px;

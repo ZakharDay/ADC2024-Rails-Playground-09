@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_02_17_115859) do
+ActiveRecord::Schema[7.2].define(version: 2025_03_21_163025) do
   create_table "action_text_rich_texts", force: :cascade do |t|
     t.string "name", null: false
     t.text "body"
@@ -71,6 +71,21 @@ ActiveRecord::Schema[7.2].define(version: 2025_02_17_115859) do
     t.datetime "updated_at", null: false
     t.integer "comment_id"
     t.index ["pin_id"], name: "index_comments_on_pin_id"
+  end
+
+  create_table "galleries", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "gallery_images", force: :cascade do |t|
+    t.integer "gallery_id"
+    t.string "image"
+    t.integer "position"
+    t.string "orientation"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "guests", force: :cascade do |t|

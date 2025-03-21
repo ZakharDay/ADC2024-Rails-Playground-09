@@ -1,0 +1,14 @@
+<p style="color: green"><%= notice %></p>
+
+<div class="gallery" data-controller="gallery" data-gallery-index-value="0" data-gallery-nav-button-visibility-class="visible" data-gallery-meatball-active-class="active">
+  <%= render "gallery_images/gallery_images", gallery: @gallery %>
+  <%= render "gallery_images/gallery_meatballs", gallery: @gallery %>
+  <%= render "gallery_images/gallery_navigation" %>
+</div>
+
+<div>
+  <%= link_to "Edit this gallery", edit_gallery_path(@gallery) %> |
+  <%= link_to "Back to galleries", galleries_path %>
+
+  <%= button_to "Destroy this gallery", @gallery, method: :delete %>
+</div>
