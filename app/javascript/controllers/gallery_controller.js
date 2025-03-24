@@ -21,18 +21,25 @@ export default class extends Controller {
     if (this.galleryImageTargets.length) {
       this.renderSlides();
       this.renderNavigation();
-      // this.renderMeatballs();
+      this.renderMeatballs();
     }
   }
 
   galleryImagesRailTargetConnected() {
     console.log('galleryImagesRailTargetConnected');
+
+    if (this.indexValue > this.galleryImageTargets.length - 1) {
+      this.indexValue = this.galleryImageTargets.length - 1;
+    }
+
     this.renderSlides();
   }
 
   galleryImageTargetConnected() {
-    this.renderNavigation();
-    // this.renderMeatballs();
+    console.log('galleryImageTargetConnected');
+
+    //   // this.renderNavigation();
+    //   // this.renderMeatballs();
   }
 
   // galleryImageTargetDisconnected() {
@@ -51,37 +58,52 @@ export default class extends Controller {
   // }
 
   galleryMeatballsTargetConnected() {
-    if (this.indexValue > this.galleryImageTargets.length - 1) {
-      console.log(this.indexValue, this.galleryImageTargets.length);
+    // if (this.indexValue > this.galleryImageTargets.length - 1) {
+    //   console.log(this.indexValue, this.galleryImageTargets.length);
+    //   this.indexValue = this.galleryImageTargets.length - 1;
+    // }
+    // if (this.galleryImageTargets.length) {
+    //   this.renderMeatballs();
+    // }
 
-      this.indexValue = this.galleryImageTargets.length - 1;
-    }
+    console.log('galleryMeatballsTargetConnected');
 
-    if (this.galleryImageTargets.length) {
-      this.renderMeatballs();
-    }
+    // this.renderMeatballs();
   }
 
   newImageFormTargetDisconnected() {
+    console.log(
+      'newImageFormTargetDisconnected',
+      this.galleryImageTargets.length
+    );
+
     if (this.galleryImageTargets.length) {
       this.moveToSlide({
         params: { position: this.galleryImageTargets.length - 1 },
       });
     }
 
-    this.renderMeatballs();
+    // this.renderMeatballs();
   }
 
   // Actions
 
   nextImage() {
     this.moveSlide('next');
-    this.renderMeatballs();
+    // this.renderMeatballs();
   }
 
   prevImage() {
     this.moveSlide('prev');
-    this.renderMeatballs();
+    // this.renderMeatballs();
+  }
+
+  nthImage({ params: { position } }) {
+    this.moveToSlide({
+      params: { position: position },
+    });
+
+    // this.renderMeatballs();
   }
 
   newImage() {
@@ -92,12 +114,19 @@ export default class extends Controller {
     this.createImageButtonTarget.click();
   }
 
-  moveToSlide({ params: { position } }) {
-    this.indexValue = position;
-    this.renderMeatballs();
-  }
-
   // Other methods
+
+  moveToSlide({ params: { position } }) {
+    console.log('moveToSlide', position);
+
+    console.log('moveToSlide BEFORE', this.indexValue);
+
+    this.indexValue = position;
+
+    console.log('moveToSlide AFTER', this.indexValue);
+
+    // this.renderMeatballs();
+  }
 
   moveSlide(direction) {
     if (direction === 'next') {
@@ -138,13 +167,21 @@ export default class extends Controller {
   }
 
   renderMeatballs() {
-    console.log(this.indexValue);
+    console.log('renderMeatballs', this.indexValue);
 
-    this.galleryMeatballTargets.forEach((meatball) => {
-      meatball.classList.remove(this.meatballActiveClass);
-    });
+    if (this.galleryMeatballTargets.length > 0) {
+      this.galleryMeatballTargets.forEach((meatball) => {
+        meatball.classList.remove(this.meatballActiveClass);
+      });
 
-    const meatball = this.galleryMeatballTargets[this.indexValue];
-    meatball.classList.add(this.meatballActiveClass);
+      console.log(
+        this.indexValue,
+        this.galleryMeatballTargets,
+        this.galleryMeatballTargets[this.indexValue]
+      );
+
+      const meatball = this.galleryMeatballTargets[this.indexValue];
+      meatball.classList.add(this.meatballActiveClass);
+    }
   }
 }
