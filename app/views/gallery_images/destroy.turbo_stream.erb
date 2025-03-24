@@ -1,0 +1,9 @@
+<% if @gallery.gallery_images.any? %>
+  <%#= turbo_stream.remove dom_id(@gallery_image) %>
+  <%= turbo_stream.replace "galleryImages", partial: "gallery_images/gallery_images", locals: { gallery: @gallery } %>
+<% else %>
+  <%= turbo_stream.replace "galleryNavigation", partial: "gallery_images/gallery_navigation", locals: { gallery: @gallery } %>
+  <%= turbo_stream.replace "galleryImages", partial: "gallery_images/gallery_images", locals: { gallery: @gallery } %>
+<% end %>
+
+<%= turbo_stream.replace "galleryMeatballs", partial: "gallery_images/gallery_meatballs", locals: { gallery: @gallery } %>

@@ -1,3 +1,11 @@
-<div class="galleryImage <%= gallery_image.orientation %>"  data-gallery-target="galleryImage">
+<div class="galleryImage <%= gallery_image.orientation %>" id="<%= dom_id(gallery_image) %>" data-gallery-target="galleryImage">
+  <div class="buttonSet">
+    <%= link_to "←", lower_gallery_image_path(gallery_image), class: "button", data: { turbo_stream: true } %>
+    <%= link_to "→", higher_gallery_image_path(gallery_image), class: "button", data: { turbo_stream: true } %>
+    <%= link_to "удалить", gallery_image_path(gallery_image), class: "button", data: { turbo_stream: true, turbo_method: :delete, turbo_confirm: "Вы уверены?" } %>
+
+    <div class="button"><%= gallery_image.position %></div>
+  </div>
+
   <%= image_tag gallery_image.image.url %>
 </div>

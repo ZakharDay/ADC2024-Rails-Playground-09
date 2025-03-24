@@ -1,0 +1,7 @@
+<%= form_with(model: GalleryImage.new, url: gallery_gallery_images_path(gallery), data: { turbo_stream: true, gallery_target: "newImageForm" }, class: "newImageForm", id: "newImageForm") do |form| %>
+  <%= form.file_field :image, hidden: true, data: { gallery_target: "newImageButton", action: "change->gallery#createImage" } %>
+  <br>
+  <%= form.submit "Создать", hidden: true, data: { gallery_target: "createImageButton" } %>
+
+  <div class="button" data-action="click->gallery#newImage">Загрузить картинку</div>
+<% end %>

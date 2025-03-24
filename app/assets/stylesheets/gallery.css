@@ -118,3 +118,22 @@
     }
   }
 }
+
+.newImageForm {
+  margin: 20px auto;
+  text-align: center;
+
+  .button {
+    display: inline-block;
+    padding: 0 20px;
+    margin: 0 auto;
+    height: 40px;
+    line-height: 40px;
+    background-color: black;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    user-select: none;
+    cursor: pointer;
+  }
+}

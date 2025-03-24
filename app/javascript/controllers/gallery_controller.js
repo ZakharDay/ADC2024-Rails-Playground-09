@@ -6,6 +6,8 @@ export default class extends Controller {
     'galleryImage',
     'prevButton',
     'nextButton',
+    'newImageButton',
+    'createImageButton',
     'galleryMeatball',
   ];
 
@@ -13,21 +15,89 @@ export default class extends Controller {
 
   static classes = ['navButtonVisibility', 'meatballActive'];
 
-  initialize() {
-    console.log('Gallery Controller Initialized');
+  // Callbacks
+
+  indexValueChanged() {
+    if (this.galleryImageTargets.length) {
+      this.renderSlides();
+      this.renderNavigation();
+      // this.renderMeatballs();
+    }
   }
 
-  connect() {
-    console.log('Gallery Controller Connected');
+  galleryImagesRailTargetConnected() {
+    console.log('galleryImagesRailTargetConnected');
+    this.renderSlides();
   }
+
+  galleryImageTargetConnected() {
+    this.renderNavigation();
+    // this.renderMeatballs();
+  }
+
+  // galleryImageTargetDisconnected() {
+  //   console.log('galleryImageTargetDisconnected');
+  //   let nextIndex;
+
+  //   if (this.indexValue > 0) {
+  //     nextIndex = this.indexValue - 1;
+  //   } else {
+  //     nextIndex = 0;
+  //   }
+
+  //   this.moveToSlide({
+  //     params: { position: nextIndex },
+  //   });
+  // }
+
+  galleryMeatballsTargetConnected() {
+    if (this.indexValue > this.galleryImageTargets.length - 1) {
+      console.log(this.indexValue, this.galleryImageTargets.length);
+
+      this.indexValue = this.galleryImageTargets.length - 1;
+    }
+
+    if (this.galleryImageTargets.length) {
+      this.renderMeatballs();
+    }
+  }
+
+  newImageFormTargetDisconnected() {
+    if (this.galleryImageTargets.length) {
+      this.moveToSlide({
+        params: { position: this.galleryImageTargets.length - 1 },
+      });
+    }
+
+    this.renderMeatballs();
+  }
+
+  // Actions
 
   nextImage() {
     this.moveSlide('next');
+    this.renderMeatballs();
   }
 
   prevImage() {
     this.moveSlide('prev');
+    this.renderMeatballs();
   }
+
+  newImage() {
+    this.newImageButtonTarget.click();
+  }
+
+  createImage() {
+    this.createImageButtonTarget.click();
+  }
+
+  moveToSlide({ params: { position } }) {
+    this.indexValue = position;
+    this.renderMeatballs();
+  }
+
+  // Other methods
 
   moveSlide(direction) {
     if (direction === 'next') {
@@ -41,12 +111,6 @@ export default class extends Controller {
         this.indexValue--;
       }
     }
-  }
-
-  indexValueChanged() {
-    this.renderSlides();
-    this.renderNavigation();
-    this.renderMeatballs();
   }
 
   renderSlides() {
@@ -74,6 +138,8 @@ export default class extends Controller {
   }
 
   renderMeatballs() {
+    console.log(this.indexValue);
+
     this.galleryMeatballTargets.forEach((meatball) => {
       meatball.classList.remove(this.meatballActiveClass);
     });
