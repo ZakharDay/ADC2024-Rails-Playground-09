@@ -10,8 +10,8 @@ Rails.application.routes.draw do
   #   end
   # end
 
-  post   "gallery_images/:id/lower",   to: "gallery_images#lower",   as: "gallery_images_lower"
-  post   "gallery_images/:id/higher",  to: "gallery_images#higher",  as: "gallery_images_higher"
+  get    "gallery_images/:id/left",    to: "gallery_images#left",    as: "gallery_images_left"
+  get    "gallery_images/:id/right",   to: "gallery_images#right",   as: "gallery_images_right"
   delete "gallery_images/:id/destroy", to: "gallery_images#destroy", as: "gallery_images_destroy"
   
   get "cart/add/:id", to: "carts#add", as: "cart_add"

@@ -1,8 +1,8 @@
 class GalleryImagesController < ApplicationController
-  skip_before_action :verify_authenticity_token, only: %i[ create lower higher destroy ]
+  skip_before_action :verify_authenticity_token, only: %i[ create destroy ]
 
-  before_action :set_gallery_image, only: %i[ lower higher destroy ]
-  before_action :set_gallery, only: %i[ lower higher destroy ]
+  before_action :set_gallery_image, only: %i[ left right destroy ]
+  before_action :set_gallery, only: %i[ left right destroy ]
 
   def create
     @gallery = Gallery.find(params[:gallery_id])
@@ -13,29 +13,23 @@ class GalleryImagesController < ApplicationController
         format.turbo_stream
       end
     end
-
-    # respond_to do |format|
-    #   if @gallery_image.save
-    #     format.html { render template: 'gallery_images/create', layout: false  }
-    #   end
-    # end
   end
 
-  def higher
-    @gallery_image.move_higher
-    @gallery_images = @gallery.gallery_images
-
-    respond_to do |format|
-      format.turbo_stream { render 'move' }
+  def left
+    if @gallery_image.move_higher
+      respond_to do |format|
+        @gallery_images = @gallery.gallery_images
+        format.turbo_stream { render 'move' }
+      end
     end
   end
 
-  def lower
-    @gallery_image.move_lower
-    @gallery_images = @gallery.gallery_images
-
-    respond_to do |format|
-      format.turbo_stream { render 'move' }
+  def right
+    if @gallery_image.move_lower
+      respond_to do |format|
+        @gallery_images = @gallery.gallery_images
+        format.turbo_stream { render 'move' }
+      end
     end
   end
 
@@ -43,12 +37,6 @@ class GalleryImagesController < ApplicationController
     @gallery = @gallery_image.gallery
     @gallery_image.destroy
   end
-
-  # def destroy
-  #   @gallery_image.destroy
-
-  #   render json: {}, status: :ok
-  # end
 
   private
 

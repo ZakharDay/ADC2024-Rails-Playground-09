@@ -15,6 +15,7 @@ export default class extends Controller {
 
   static values = {
     index: Number,
+    action: String,
   };
 
   static classes = ['navButtonVisibility', 'meatballActive'];
@@ -36,23 +37,27 @@ export default class extends Controller {
       this.indexValue = this.galleryImageTargets.length - 1;
     }
 
+    this.actionValue = '';
+
     this.renderSlides();
   }
 
   galleryImageTargetDisconnected() {
     // console.log('galleryImageTargetDisconnected');
 
-    let nextIndex;
+    if (this.actionValue != 'move') {
+      let nextIndex;
 
-    if (this.indexValue > 0) {
-      nextIndex = this.indexValue - 1;
-    } else {
-      nextIndex = 0;
+      if (this.indexValue > 0) {
+        nextIndex = this.indexValue - 1;
+      } else {
+        nextIndex = 0;
+      }
+
+      this.moveToSlide({
+        params: { position: nextIndex },
+      });
     }
-
-    this.moveToSlide({
-      params: { position: nextIndex },
-    });
   }
 
   newImageFormTargetDisconnected() {
@@ -87,12 +92,16 @@ export default class extends Controller {
     this.createImageButtonTarget.click();
   }
 
-  lowerImage({ params: { imageId } }) {
-    console.log(imageId);
+  moveImageLeft() {
+    if (this.indexValue != 0) {
+      this.actionValue = 'move';
+    }
   }
 
-  higherImage({ params: { imageId } }) {
-    console.log(imageId);
+  moveImageRight() {
+    if (this.indexValue + 1 < this.galleryImageTargets.length) {
+      this.actionValue = 'move';
+    }
   }
 
   // Other methods
@@ -154,5 +163,7 @@ export default class extends Controller {
       const meatball = this.galleryMeatballTargets[this.indexValue];
       meatball.classList.add(this.meatballActiveClass);
     }
+
+    this.actionValue = '';
   }
 }

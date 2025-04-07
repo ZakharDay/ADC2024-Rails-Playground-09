@@ -1,7 +1,7 @@
 <div class="galleryImage <%= gallery_image.orientation %>" id="<%= dom_id(gallery_image) %>" data-gallery-target="galleryImage" data-gallery-image-id-param="<%= gallery_image.id %>">
   <div class="buttonSet">
-    <%= link_to "←", gallery_images_higher_path(gallery_image), class: "button", data: { turbo_stream: true } %>
-    <%= link_to "→", gallery_images_lower_path(gallery_image), class: "button", data: { turbo_stream: true } %>
+    <%= link_to "←", gallery_images_right_path(gallery_image), class: "button", data: { turbo_stream: true, action: "click->gallery#moveImageLeft" } %>
+    <%= link_to "→", gallery_images_left_path(gallery_image), class: "button", data: { turbo_stream: true, action: "click->gallery#moveImageRight" } %>
     <%= link_to "удалить", gallery_images_destroy_path(gallery_image), class: "button", data: { turbo_stream: true, turbo_method: :delete, turbo_confirm: "Вы уверены?" } %>
 
     <div class="button"><%= gallery_image.position %></div>
