@@ -1,8 +1,3 @@
-<%#= turbo_stream.append "galleryImagesRail", partial: "gallery_images/gallery_image", locals: { gallery_image: @gallery_image } %>
-<%#= turbo_stream.replace "galleryImages", partial: "gallery_images/gallery_images", locals: { gallery: @gallery } %>
-<%#= turbo_stream.replace "galleryMeatballs", partial: "gallery_images/gallery_meatballs", locals: { gallery: @gallery } %>
-
-<%#= turbo_stream.replace "galleryImages", partial: "gallery_images/gallery_images", locals: { gallery: @gallery } %>
 <%= turbo_stream.append "galleryImagesRail", partial: "gallery_images/gallery_image", locals: { gallery_image: @gallery_image } %>
 <%= turbo_stream.replace "galleryNavigation", partial: "gallery_images/gallery_navigation", locals: { gallery: @gallery } %>
 <%= turbo_stream.replace "galleryMeatballs", partial: "gallery_images/gallery_meatballs", locals: { gallery: @gallery } %>
