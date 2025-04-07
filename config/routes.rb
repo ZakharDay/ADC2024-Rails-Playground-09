@@ -10,9 +10,9 @@ Rails.application.routes.draw do
   #   end
   # end
 
-  post "gallery_images/lower", to: "gallery_images#lower", as: "gallery_images_lower"
-  post "gallery_images/higher", to: "gallery_images#higher", as: "gallery_images_higher"
-  post "gallery_images/destroy", to: "gallery_images#destroy", as: "gallery_images_destroy"
+  post   "gallery_images/:id/lower",   to: "gallery_images#lower",   as: "gallery_images_lower"
+  post   "gallery_images/:id/higher",  to: "gallery_images#higher",  as: "gallery_images_higher"
+  delete "gallery_images/:id/destroy", to: "gallery_images#destroy", as: "gallery_images_destroy"
   
   get "cart/add/:id", to: "carts#add", as: "cart_add"
   get "cart/destroy", to: "carts#destroy", as: "cart_destroy"

@@ -10,9 +10,15 @@ class GalleryImagesController < ApplicationController
 
     respond_to do |format|
       if @gallery_image.save
-        format.html { render template: 'gallery_images/create', layout: false  }
+        format.turbo_stream
       end
     end
+
+    # respond_to do |format|
+    #   if @gallery_image.save
+    #     format.html { render template: 'gallery_images/create', layout: false  }
+    #   end
+    # end
   end
 
   def higher
@@ -34,10 +40,15 @@ class GalleryImagesController < ApplicationController
   end
 
   def destroy
+    @gallery = @gallery_image.gallery
     @gallery_image.destroy
-
-    render json: {}, status: :ok
   end
+
+  # def destroy
+  #   @gallery_image.destroy
+
+  #   render json: {}, status: :ok
+  # end
 
   private
 
