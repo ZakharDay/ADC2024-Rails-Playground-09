@@ -6,12 +6,20 @@ export default class extends Controller {
     'galleryImage',
     'prevButton',
     'nextButton',
+    'newImageForm',
     'newImageButton',
     'createImageButton',
     'galleryMeatball',
+    'galleryMeatballs',
   ];
 
-  static values = { index: Number };
+  static values = {
+    index: Number,
+    createImageUrl: String,
+    lowerImageUrl: String,
+    higherImageUrl: String,
+    destroyImageUrl: String,
+  };
 
   static classes = ['navButtonVisibility', 'meatballActive'];
 
@@ -35,13 +43,6 @@ export default class extends Controller {
     this.renderSlides();
   }
 
-  galleryImageTargetConnected() {
-    console.log('galleryImageTargetConnected');
-
-    //   // this.renderNavigation();
-    //   // this.renderMeatballs();
-  }
-
   // galleryImageTargetDisconnected() {
   //   console.log('galleryImageTargetDisconnected');
   //   let nextIndex;
@@ -57,20 +58,6 @@ export default class extends Controller {
   //   });
   // }
 
-  galleryMeatballsTargetConnected() {
-    // if (this.indexValue > this.galleryImageTargets.length - 1) {
-    //   console.log(this.indexValue, this.galleryImageTargets.length);
-    //   this.indexValue = this.galleryImageTargets.length - 1;
-    // }
-    // if (this.galleryImageTargets.length) {
-    //   this.renderMeatballs();
-    // }
-
-    console.log('galleryMeatballsTargetConnected');
-
-    // this.renderMeatballs();
-  }
-
   newImageFormTargetDisconnected() {
     console.log(
       'newImageFormTargetDisconnected',
@@ -82,28 +69,22 @@ export default class extends Controller {
         params: { position: this.galleryImageTargets.length - 1 },
       });
     }
-
-    // this.renderMeatballs();
   }
 
   // Actions
 
   nextImage() {
     this.moveSlide('next');
-    // this.renderMeatballs();
   }
 
   prevImage() {
     this.moveSlide('prev');
-    // this.renderMeatballs();
   }
 
   nthImage({ params: { position } }) {
     this.moveToSlide({
       params: { position: position },
     });
-
-    // this.renderMeatballs();
   }
 
   newImage() {
@@ -111,21 +92,87 @@ export default class extends Controller {
   }
 
   createImage() {
-    this.createImageButtonTarget.click();
+    const form = this.newImageFormTarget;
+    const formContent = new FormData(form);
+
+    fetch(this.createImageUrlValue + '.html', {
+      method: 'POST',
+      body: formContent,
+    }).then((response) => {
+      response.text().then((data) => {
+        const html = new DOMParser().parseFromString(data, 'text/html');
+
+        this.galleryImagesRailTarget.appendChild(
+          html.querySelector('.galleryImage').cloneNode(true)
+        );
+
+        this.galleryMeatballsTarget.appendChild(
+          html.querySelector('.galleryMeatball').cloneNode(true)
+        );
+
+        this.newImageFormTarget.reset();
+
+        this.moveToSlide({
+          params: { position: this.galleryImageTargets.length - 1 },
+        });
+      });
+    });
+  }
+
+  lowerImage({ params: { imageId } }) {
+    console.log(imageId);
+  }
+
+  higherImage({ params: { imageId } }) {
+    console.log(imageId);
+  }
+
+  destroyImage({ params: { imageId } }) {
+    console.log(imageId);
+
+    fetch(this.destroyImageUrlValue + '.json', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ id: imageId }),
+    }).then((response) => {
+      console.log(response.status);
+
+      if (response.status == 200) {
+        this.galleryImageTargets.forEach((galleryImage) => {
+          if (galleryImage.dataset.galleryImageIdParam == imageId) {
+            galleryImage.remove();
+          }
+        });
+      }
+
+      // response.json().then((data) => {
+      // console.log(data);
+
+      // const html = new DOMParser().parseFromString(data, 'text/html');
+
+      // this.galleryImagesRailTarget.appendChild(
+      //   html.querySelector('.galleryImage').cloneNode(true)
+      // );
+
+      // this.galleryMeatballsTarget.appendChild(
+      //   html.querySelector('.galleryMeatball').cloneNode(true)
+      // );
+
+      // this.newImageFormTarget.reset();
+
+      // this.moveToSlide({
+      //   params: { position: this.galleryImageTargets.length - 1 },
+      // });
+      // });
+    });
   }
 
   // Other methods
 
   moveToSlide({ params: { position } }) {
-    console.log('moveToSlide', position);
-
-    console.log('moveToSlide BEFORE', this.indexValue);
-
     this.indexValue = position;
-
-    console.log('moveToSlide AFTER', this.indexValue);
-
-    // this.renderMeatballs();
   }
 
   moveSlide(direction) {
@@ -167,8 +214,6 @@ export default class extends Controller {
   }
 
   renderMeatballs() {
-    console.log('renderMeatballs', this.indexValue);
-
     if (this.galleryMeatballTargets.length > 0) {
       this.galleryMeatballTargets.forEach((meatball) => {
         meatball.classList.remove(this.meatballActiveClass);

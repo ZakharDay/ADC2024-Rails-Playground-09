@@ -104,18 +104,18 @@
   display: flex;
   justify-content: center;
   padding: 20px 0;
+}
 
-  .galleryMeatball {
-    width: 12px;
-    height: 12px;
-    margin: 0 8px;
-    border-radius: 6px;
-    background-color: black;
-    opacity: 0.3;
+.galleryMeatball {
+  width: 12px;
+  height: 12px;
+  margin: 0 8px;
+  border-radius: 6px;
+  background-color: black;
+  opacity: 0.3;
 
-    &.active {
-      opacity: 1;
-    }
+  &.active {
+    opacity: 1;
   }
 }
 

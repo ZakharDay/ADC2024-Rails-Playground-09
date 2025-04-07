@@ -1,18 +1,29 @@
-class GalleryImagesController < ApplicationController
-  skip_before_action :verify_authenticity_token, only: %i[ create lower higher destroy ]
-
+class Api::V1::GalleryImagesController < ApplicationController
+  skip_before_action :verify_authenticity_token
+  
   before_action :set_gallery_image, only: %i[ lower higher destroy ]
   before_action :set_gallery, only: %i[ lower higher destroy ]
 
   def create
-    @gallery = Gallery.find(params[:gallery_id])
-    @gallery_image = @gallery.gallery_images.new(gallery_image_params)
+    gallery = Gallery.find(params[:gallery_id])
+    @gallery_image = gallery.gallery_images.new(gallery_image_params)
 
-    respond_to do |format|
-      if @gallery_image.save
-        format.html { render template: 'gallery_images/create', layout: false  }
+    if @gallery_image.save
+      respond_to do |format|
+        format.html { template: :create, layout: false  }
+      #   format.json
       end
+      # render json: { url: gallery_image.image.url }, status: :ok
+
+      # html = render_to_string(template: 'gallery_images/show', layout: false)
+      # html = render_to_string(partial: 'gallery_images/gallery_image', layout: false)
+
+      # render body: 'gallery_images/show'
+      # render json: { html: html }
+
     end
+
+    # render partial: 'gallery_images/gallery_image', layout: false
   end
 
   def higher
@@ -35,14 +46,11 @@ class GalleryImagesController < ApplicationController
 
   def destroy
     @gallery_image.destroy
-
-    render json: {}, status: :ok
   end
 
   private
 
     def set_gallery_image
-      puts params
       @gallery_image = GalleryImage.find(params[:id])
     end
 

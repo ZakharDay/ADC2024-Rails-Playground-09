@@ -3,12 +3,16 @@ Rails.application.routes.draw do
     resources :gallery_images, only: :create
   end
 
-  resources :gallery_images, only: :destroy do
-    member do
-      get :lower
-      get :higher
-    end
-  end
+  # resources :gallery_images, only: :destroy do
+  #   member do
+  #     get :lower
+  #     get :higher
+  #   end
+  # end
+
+  post "gallery_images/lower", to: "gallery_images#lower", as: "gallery_images_lower"
+  post "gallery_images/higher", to: "gallery_images#higher", as: "gallery_images_higher"
+  post "gallery_images/destroy", to: "gallery_images#destroy", as: "gallery_images_destroy"
   
   get "cart/add/:id", to: "carts#add", as: "cart_add"
   get "cart/destroy", to: "carts#destroy", as: "cart_destroy"
@@ -28,6 +32,19 @@ Rails.application.routes.draw do
 
   namespace :api, format: 'json' do
     namespace :v1 do
+      post "galleries/:gallery_id/gallery_images", to: "gallery_images#create", as: "gallery_images_create"
+
+      # resources :galleries do
+      #   resources :gallery_images, only: :create
+      # end
+
+      # resources :gallery_images, only: :destroy do
+      namespace :gallery_images do
+        get "gallery_images/:id/lower", to: "gallery_images/lower", as: "lower"
+        get "gallery_images/:id/higher", to: "gallery_images/higher", as: "higher"
+        delete "gallery_images/:id/destroy", to: "gallery_images/destroy", as: "destroy"
+      end
+      
       resources :pins, only: [:index, :show, :create]
 
       devise_scope :user do
