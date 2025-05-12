@@ -1,0 +1,21 @@
+<% if current_user %>
+  <div class="notifications" id="notifications">
+    <div class="notificationsCounter">
+      Notifications 
+      <span><%= current_user.notifications.count %></span>
+    </div>
+
+    <% current_user.notifications.each do |notification| %>
+      <%
+        url = nil
+        comment = Comment.find(notification.comment_id)
+        pin = comment.pin
+        url = pin_url(pin, anchor: "comment_#{comment.id}")
+      %>
+
+      <div class="notification">
+        <%= link_to notification.body, url %>
+      </div>
+    <% end %>
+  </div>
+<% end %>

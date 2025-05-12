@@ -12,6 +12,7 @@ class User < ApplicationRecord
 
   has_many :likes
   has_many :pins
-
   has_many :carts, as: :cartable
+  has_many :notifications
+  has_many :comments
 end

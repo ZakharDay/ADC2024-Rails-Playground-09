@@ -1,37 +1,41 @@
-<%
-  comment_level = nested_level(comment)
+<% if comment.persisted? %>
 
-  likes_count = comment.likes.count
-  like_text = "Like (#{likes_count})"
+  <%
+    comment_level = nested_level(comment)
 
-  if current_user && comment.likes.where(user_id: current_user.id).count > 0
-    like_text = "Unlike (#{likes_count})"
-  end
-%>
+    likes_count = comment.likes.count
+    like_text = "Like (#{likes_count})"
 
-<div class="comment <%= 'reply' if comment.comment_id != nil && comment_level < 4 %>">
-  <%#= comment.author %>
-  <%= turbo_frame_tag dom_id(comment) do %>
-    <p><%= comment.content %></p>
+    if current_user && comment.likes.where(user_id: current_user.id).count > 0
+      like_text = "Unlike (#{likes_count})"
+    end
+  %>
 
-    <%= render partial: "likes/like_control", locals: { likeable: comment } %>
-    
-    <%= link_to "Edit", edit_pin_comment_path(comment.pin, comment) %>
+  <div class="comment <%= 'reply' if comment.comment_id != nil && comment_level < 4 %>">
+    <%#= comment.author %>
+    <%= turbo_frame_tag dom_id(comment) do %>
+      <p><%= comment.content %></p>
 
-    <p>
-      Id: <%= comment.id %>, Nested level: <%= nested_level(comment) %>
-    </p>
-  <% end %>
+      <%= render partial: "likes/like_control", locals: { likeable: comment } %>
+      
+      <%= link_to "Edit", edit_pin_comment_path(comment.pin, comment) %>
 
-  <%#= link_to 'Destroy Comment', [comment.pin, comment], data: { turbo_stream: false, turbo_method: :delete, turbo_confirm: "Are you sure?" } %>
+      <p>
+        Id: <%= comment.id %>, Nested level: <%= nested_level(comment) %>
+      </p>
+    <% end %>
 
-  <%= render partial: "comments/new_form", locals: { comment: Comment.new, url: pin_comments_path(comment.pin), parent_comment_id: comment.id, dom_id: "new_pin_comment_reply_form_" + comment.id.to_s } %>
+    <%#= link_to 'Destroy Comment', [comment.pin, comment], data: { turbo_stream: false, turbo_method: :delete, turbo_confirm: "Are you sure?" } %>
 
-  <% replies = comment.replies %>
+    <%= render partial: "comments/new_form", locals: { comment: Comment.new, url: pin_comments_path(comment.pin), parent_comment_id: comment.id, dom_id: "new_pin_comment_reply_form_" + comment.id.to_s } %>
 
-  <%= render partial: "comments/replies_counter", locals: { replies: replies, id: "pin_replies_heading_" + comment.id.to_s } %>
+    <% replies = comment.replies %>
 
-  <div id="comment_replies_<%= comment.id %>">
-    <%= render replies %>
+    <%= render partial: "comments/replies_counter", locals: { replies: replies, id: "pin_replies_heading_" + comment.id.to_s } %>
+
+    <div id="comment_replies_<%= comment.id %>">
+      <%= render replies %>
+    </div>
   </div>
-</div>
+
+<% end %>

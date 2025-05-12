@@ -13,14 +13,22 @@ class CommentsController < ApplicationController
 		# redirect_to pin_path(@pin)
 
     @comment = @pin.comments.new(comment_params)
+    @comment.user_id = current_user.id
 
     respond_to do |format|
       if @comment.save
+        if @comment.user.id != @pin.user.id
+          user = @pin.user
+          body = "Комментарий '#{@comment.content}' от пользователя #{@comment.user.email}"
+          notification = user.notifications.create!(body: body, comment: @comment)
+          ActionCable.server.broadcast("notifications_#{user.id}", { body: body, url: pin_path(@pin, anchor: "comment_#{@comment.id}") })
+        end
+
         format.turbo_stream
         format.html { redirect_to pin_comment_url(@comment.pin, @comment), notice: "Comment was successfully created." }
         format.json { render :show, status: :created, location: @comment }
       else
-        format.html { render :new, status: :unprocessable_entity }
+        format.html { render :show, status: :unprocessable_entity }
         format.json { render json: @comment.errors, status: :unprocessable_entity }
       end
     end

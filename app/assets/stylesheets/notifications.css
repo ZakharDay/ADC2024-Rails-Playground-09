@@ -1,0 +1,14 @@
+.notifications {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 300px;
+  height: 500px;
+  padding: 20px;
+  border: 1px solid black;
+  overflow: scroll;
+}
+
+.notification {
+  margin: 10px 0;
+}

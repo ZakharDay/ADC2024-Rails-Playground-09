@@ -20,6 +20,8 @@
 </head>
 
 <body>
+<%= current_user.id %>
+<%= cookies.encrypted[:user_id] %>
   <%= render "menubar" %>
 
   <%= yield :breadcrumbs %>
@@ -27,6 +29,8 @@
   <%= yield %>
 
   <%= yield :footer %>
+
+  <%= render "notifications" %>
 </body>
 
 </html>

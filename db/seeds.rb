@@ -3,14 +3,14 @@
 
 def seed
   reset_db
-  # create_users(10)
-  # create_products(100)
-  # create_pins(100)
-  # create_comments(2..8)
+  create_users(10)
+  create_products(100)
+  create_pins(100)
+  create_comments(2..8)
 
-  # 3.times do
-  #   create_comment_replies
-  # end
+  3.times do
+    create_comment_replies
+  end
 
   create_galleries(2..5)
   create_gallery_images
@@ -75,7 +75,12 @@ end
 def create_comments(quantity)
   Pin.all.each do |pin|
     quantity.to_a.sample.times do
-      comment = Comment.create!(pin_id: pin.id, content: create_sentence)
+      comment = Comment.create!(
+        pin_id: pin.id,
+        content: create_sentence,
+        user_id: User.all.sample.id
+      )
+
       puts "Comment with id #{comment.id} for pin with id #{comment.pin.id} just created"
     end
   end
@@ -84,7 +89,12 @@ end
 def create_comment_replies
   Comment.all.each do |comment|
     if rand(1..3) == 1
-      comment_reply = comment.replies.create!(pin_id: comment.pin_id, content: create_sentence)
+      comment_reply = comment.replies.create!(
+        pin_id: comment.pin_id,
+        content: create_sentence,
+        user_id: User.all.sample.id
+      )
+
       puts "Comment reply with id #{comment_reply.id} for pin with id #{comment_reply.pin.id} just created"
     end
   end

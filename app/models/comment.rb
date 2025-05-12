@@ -1,5 +1,7 @@
 class Comment < ApplicationRecord
+  belongs_to :user
   belongs_to :pin
+  has_many :notifications
   has_many :likes, as: :likeable
 
   has_many :replies, class_name: "Comment", foreign_key: "comment_id", dependent: :destroy

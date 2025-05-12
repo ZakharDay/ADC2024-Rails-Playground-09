@@ -5,3 +5,4 @@ import 'controllers';
 import 'trix';
 import './trix_upgrade';
 import '@rails/actiontext';
+import 'channels';

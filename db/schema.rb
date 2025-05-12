@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_03_21_163025) do
+ActiveRecord::Schema[7.2].define(version: 2025_04_14_132258) do
   create_table "action_text_rich_texts", force: :cascade do |t|
     t.string "name", null: false
     t.text "body"
@@ -64,6 +64,7 @@ ActiveRecord::Schema[7.2].define(version: 2025_03_21_163025) do
   end
 
   create_table "comments", force: :cascade do |t|
+    t.integer "user_id"
     t.string "author"
     t.text "content"
     t.integer "pin_id", null: false
@@ -101,6 +102,14 @@ ActiveRecord::Schema[7.2].define(version: 2025_03_21_163025) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_likes_on_user_id"
+  end
+
+  create_table "notifications", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "comment_id"
+    t.string "body"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "pins", force: :cascade do |t|

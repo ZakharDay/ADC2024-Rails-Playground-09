@@ -1,4 +1,6 @@
 <div class="pin" id="<%= dom_id pin %>">
+  <%= pin.user.email %>
+
   <% if pin.pin_image.try(:url) %>
     <%= image_tag pin.pin_image.url, width: 600 if pin.pin_image.present? %>
     <div><%= bytes_to_megabytes(pin.pin_image.file.size) %> Mb</div>
