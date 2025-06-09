@@ -5,23 +5,23 @@ class Api::V1::GalleryImagesController < ApplicationController
   before_action :set_gallery, only: %i[ lower higher destroy ]
 
   def create
-    gallery = Gallery.find(params[:gallery_id])
-    @gallery_image = gallery.gallery_images.new(gallery_image_params)
+    # gallery = Gallery.find(params[:gallery_id])
+    # @gallery_image = gallery.gallery_images.new(gallery_image_params)
 
-    if @gallery_image.save
-      respond_to do |format|
-        format.html { template: :create, layout: false  }
-      #   format.json
-      end
-      # render json: { url: gallery_image.image.url }, status: :ok
+    # if @gallery_image.save
+    #   respond_to do |format|
+    #     format.html { template: :create, layout: false  }
+    #   #   format.json
+    #   end
+    #   # render json: { url: gallery_image.image.url }, status: :ok
 
-      # html = render_to_string(template: 'gallery_images/show', layout: false)
-      # html = render_to_string(partial: 'gallery_images/gallery_image', layout: false)
+    #   # html = render_to_string(template: 'gallery_images/show', layout: false)
+    #   # html = render_to_string(partial: 'gallery_images/gallery_image', layout: false)
 
-      # render body: 'gallery_images/show'
-      # render json: { html: html }
+    #   # render body: 'gallery_images/show'
+    #   # render json: { html: html }
 
-    end
+    # end
 
     # render partial: 'gallery_images/gallery_image', layout: false
   end
