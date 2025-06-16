@@ -7,8 +7,8 @@ namespace :setup do
     @words = @raw_text.downcase.gsub(/[—.—,«»:()]/, '').gsub(/  /, ' ').split(' ')
 
     def seed
-      create_users(10)
-      create_products(100)
+      # create_users(10)
+      # create_products(100)
       create_pins(100)
       create_comments(2..8)
 
