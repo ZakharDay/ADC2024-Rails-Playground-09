@@ -30,7 +30,7 @@ set :pty, true
 append :linked_files, "config/database.yml", "config/master.key", "config/puma.rb", "config/credentials.yml.enc"
 
 # Default value for linked_dirs is []
-append :linked_dirs, "log", "tmp/pids", "tmp/cache", "tmp/sockets", "public/uploads", "public/autouploads", "vendor/javascript", "storage"
+append :linked_dirs, "log", "tmp/pids", "tmp/cache", "tmp/sockets", "public/uploads", "public/autoupload", "vendor/javascript", "storage"
 
 # Default value for default_env is {}
 # set :default_env, { path: "/opt/ruby/bin:$PATH" }
